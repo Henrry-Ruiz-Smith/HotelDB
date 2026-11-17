@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="svg-title svg-desc">
+<title id="svg-title">HotelDB — Executive Hotel Analytics Dashboard, año 2022</title>
+<desc id="svg-desc">Vista previa del dashboard: ingresos por alojamiento S/ 3.180.050, mil estancias, 2791 noches habitación, 74,9 por ciento de satisfacción favorable. Gráficos de ingresos mensuales, ingresos por hotel y distribución de medios de pago.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a1525"/><stop offset=".6" stop-color="#0c1220"/><stop offset="1" stop-color="#121027"/></linearGradient>
+<linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5eead4" stop-opacity=".34"/><stop offset="1" stop-color="#5eead4" stop-opacity="0"/></linearGradient>
+<linearGradient id="pill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6de7ce"/><stop offset="1" stop-color="#67b7f7"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="28"/></filter>
+</defs>
+<rect x="0" y="0" width="1600" height="1000" rx="0" fill="url(#bg)" />
+<circle cx="1450" cy="-120" r="320" fill="#5eead4" opacity=".045" filter="url(#glow)"/>
+<circle cx="20" cy="800" r="300" fill="#7970ff" opacity=".055" filter="url(#glow)"/>
+<rect x="58" y="48" width="46" height="46" rx="14" fill="url(#pill)" />
+<text x="72" y="79" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="29" font-weight="800" fill="#0b1823" >H</text>
+<text x="120" y="78" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="27" font-weight="800" fill="#ffffff" >HOTELDB</text>
+<text x="121" y="101" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" fill="#9aacbf" letter-spacing="2.8">HOSPITALITY INTELLIGENCE</text>
+<text x="60" y="161" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="39" font-weight="770" fill="#f8fbff" >Panorama ejecutivo</text>
+<text x="60" y="186" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="400" fill="#9cacc1" >Rendimiento hotelero · Vista analítica del conjunto de datos 2022</text>
+<rect x="1318" y="57" width="222" height="42" rx="21" fill="#193342" />
+<text x="1350" y="84" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="650" fill="#7bf2d8" >●  DEMO · 2022</text>
+<rect x="60" y="220" width="340" height="136" rx="18" fill="#182338" stroke="#263851" stroke-width="1"/>
+<rect x="84" y="245" width="7" height="24" rx="3" fill="#6ce4d1" />
+<text x="102" y="265" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="650" fill="#9baac0" letter-spacing=".7">INGRESOS POR ALOJAMIENTO</text>
+<text x="84" y="308" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="37" font-weight="780" fill="#f9fbff" >S/ 3,180,050</text>
+<text x="84" y="334" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="400" fill="#9dacbd" >Facturación teórica · muestra 2022</text>
+<rect x="440" y="220" width="340" height="136" rx="18" fill="#182338" stroke="#263851" stroke-width="1"/>
+<rect x="464" y="245" width="7" height="24" rx="3" fill="#96baff" />
+<text x="482" y="265" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="650" fill="#9baac0" letter-spacing=".7">ESTANCIAS</text>
+<text x="464" y="308" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="37" font-weight="780" fill="#f9fbff" >1.000</text>
+<text x="464" y="334" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="400" fill="#9dacbd" >100 % de registros vinculados</text>
+<rect x="820" y="220" width="340" height="136" rx="18" fill="#182338" stroke="#263851" stroke-width="1"/>
+<rect x="844" y="245" width="7" height="24" rx="3" fill="#d4b6ff" />
+<text x="862" y="265" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="650" fill="#9baac0" letter-spacing=".7">NOCHES HABITACIÓN</text>
+<text x="844" y="308" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="37" font-weight="780" fill="#f9fbff" >2,791</text>
+<text x="844" y="334" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="400" fill="#9dacbd" >2,79 noches de media</text>
+<rect x="1200" y="220" width="340" height="136" rx="18" fill="#182338" stroke="#263851" stroke-width="1"/>
+<rect x="1224" y="245" width="7" height="24" rx="3" fill="#ffcc90" />
+<text x="1242" y="265" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="650" fill="#9baac0" letter-spacing=".7">SATISFACCIÓN FAVORABLE</text>
+<text x="1224" y="308" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="37" font-weight="780" fill="#f9fbff" >74,9 %</text>
+<text x="1224" y="334" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="400" fill="#9dacbd" >749 de 1.000 evaluaciones</text>
+<rect x="60" y="378" width="936" height="350" rx="20" fill="#151f33" stroke="#273651" stroke-width="1"/>
+<text x="87" y="417" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" font-weight="710" fill="#f7f9ff" >Ingresos mensuales por alojamiento</text>
+<text x="87" y="439" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="400" fill="#94a3bc" >Variación mensual · PEN</text>
+<rect x="815" y="397" width="150" height="30" rx="14" fill="#21394a" />
+<text x="835" y="417" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#82e8d7" >ENE – DIC 2022</text>
+<line x1="140" x2="955" y1="664" y2="664" stroke="#2b3a52" stroke-width="1" stroke-dasharray="3 7"/>
+<text x="89" y="669" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="500" fill="#8da1ba" >0</text>
+<line x1="140" x2="955" y1="622" y2="622" stroke="#2b3a52" stroke-width="1" stroke-dasharray="3 7"/>
+<text x="89" y="627" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="500" fill="#8da1ba" >100k</text>
+<line x1="140" x2="955" y1="580" y2="580" stroke="#2b3a52" stroke-width="1" stroke-dasharray="3 7"/>
+<text x="89" y="585" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="500" fill="#8da1ba" >200k</text>
+<line x1="140" x2="955" y1="538" y2="538" stroke="#2b3a52" stroke-width="1" stroke-dasharray="3 7"/>
+<text x="89" y="543" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="500" fill="#8da1ba" >300k</text>
+<line x1="140" x2="955" y1="496" y2="496" stroke="#2b3a52" stroke-width="1" stroke-dasharray="3 7"/>
+<text x="89" y="501" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="500" fill="#8da1ba" >400k</text>
+<path d="M151.0,552.8 L222.5,564.0 L294.0,542.2 L365.5,540.6 L437.0,531.1 L508.5,549.8 L580.0,569.6 L651.5,546.3 L723.0,563.0 L794.5,551.8 L866.0,552.6 L937.5,568.5 L937.5,664 L151.0,664 Z" fill="url(#area)"/>
+<path d="M151.0,552.8 L222.5,564.0 L294.0,542.2 L365.5,540.6 L437.0,531.1 L508.5,549.8 L580.0,569.6 L651.5,546.3 L723.0,563.0 L794.5,551.8 L866.0,552.6 L937.5,568.5" fill="none" stroke="#65e2cd" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="151.0" cy="552.8" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="151" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Ene</text>
+<circle cx="222.5" cy="564.0" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="222.5" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Feb</text>
+<circle cx="294.0" cy="542.2" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="294" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Mar</text>
+<circle cx="365.5" cy="540.6" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="365.5" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Abr</text>
+<circle cx="437.0" cy="531.1" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="437" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">May</text>
+<circle cx="508.5" cy="549.8" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="508.5" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Jun</text>
+<circle cx="580.0" cy="569.6" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="580" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Jul</text>
+<circle cx="651.5" cy="546.3" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="651.5" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Ago</text>
+<circle cx="723.0" cy="563.0" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="723" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Sep</text>
+<circle cx="794.5" cy="551.8" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="794.5" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Oct</text>
+<circle cx="866.0" cy="552.6" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="866" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Nov</text>
+<circle cx="937.5" cy="568.5" r="5" fill="#70f4de" stroke="#14263a" stroke-width="3"/>
+<text x="937.5" y="690" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="500" fill="#9eafc6" text-anchor="middle">Dic</text>
+<rect x="1018" y="378" width="522" height="350" rx="20" fill="#151f33" stroke="#273651" stroke-width="1"/>
+<text x="1047" y="417" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" font-weight="710" fill="#f7f9ff" >Rendimiento por hotel</text>
+<text x="1047" y="438" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="400" fill="#94a3bc" >Ingresos por alojamiento</text>
+<text x="1048" y="482" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="570" fill="#dce9f6" >Hilton Garden Inn</text>
+<text x="1504" y="482" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#8eead9" text-anchor="end">S/ 1,319,775</text>
+<rect x="1048" y="497" width="455" height="13" rx="7" fill="#233146" />
+<rect x="1048" y="497" width="455" height="13" rx="7" fill="#68dccd" />
+<text x="1048" y="555" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="570" fill="#dce9f6" >Hilton Miraflores</text>
+<text x="1504" y="555" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#8eead9" text-anchor="end">S/ 1,061,500</text>
+<rect x="1048" y="570" width="455" height="13" rx="7" fill="#233146" />
+<rect x="1048" y="570" width="365.958212574113" height="13" rx="7" fill="#749bef" />
+<text x="1048" y="628" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="570" fill="#dce9f6" >Hampton Arequipa</text>
+<text x="1504" y="628" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#8eead9" text-anchor="end">S/ 798,775</text>
+<rect x="1048" y="643" width="455" height="13" rx="7" fill="#233146" />
+<rect x="1048" y="643" width="275.38226212801425" height="13" rx="7" fill="#b89bf2" />
+<text x="1048" y="705" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="500" fill="#8293aa" >Ranking por facturación estimada</text>
+<rect x="60" y="751" width="694" height="191" rx="20" fill="#151f33" stroke="#273651" stroke-width="1"/>
+<text x="88" y="793" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#f7f9ff" >Experiencia del huésped</text>
+<text x="88" y="820" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="500" fill="#95a7bc" >Distribución de satisfacción</text>
+<rect x="88" y="844" width="635" height="19" rx="8" fill="#2a374c" />
+<rect x="88" y="844" width="475.615" height="19" rx="8" fill="#69dfc9" />
+<rect x="563.615" y="844" width="130.81" height="19" rx="0" fill="#8d8ff4" />
+<rect x="694.425" y="844" width="28.575" height="19" rx="0" fill="#fb9c88" />
+<text x="88" y="901" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="600" fill="#7eead4" >● Favorable 74,9 %</text>
+<text x="292" y="901" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="600" fill="#a8a8fc" >● Neutral 20,6 %</text>
+<text x="505" y="901" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="600" fill="#fcae9a" >● Negativa 4,5 %</text>
+<rect x="774" y="751" width="766" height="191" rx="20" fill="#151f33" stroke="#273651" stroke-width="1"/>
+<text x="803" y="791" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#f7f9ff" >Medios de pago preferidos</text>
+<rect x="803" y="814" width="8" height="8" rx="4" fill="#72dfcc" />
+<text x="819" y="822" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="550" fill="#c9d6e8" >Paypal</text>
+<text x="819" y="844" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="400" fill="#9fb0c5" >478 estancias</text>
+<rect x="1043" y="814" width="8" height="8" rx="4" fill="#85adfa" />
+<text x="1059" y="822" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="550" fill="#c9d6e8" >Transferencia</text>
+<text x="1059" y="844" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="400" fill="#9fb0c5" >269 estancias</text>
+<rect x="1283" y="814" width="8" height="8" rx="4" fill="#b69df2" />
+<text x="1299" y="822" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="550" fill="#c9d6e8" >Cheques</text>
+<text x="1299" y="844" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="400" fill="#9fb0c5" >119 estancias</text>
+<rect x="803" y="874" width="8" height="8" rx="4" fill="#ffcb92" />
+<text x="819" y="882" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="550" fill="#c9d6e8" >Efectivo</text>
+<text x="819" y="904" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="400" fill="#9fb0c5" >71 estancias</text>
+<rect x="1043" y="874" width="8" height="8" rx="4" fill="#f49fac" />
+<text x="1059" y="882" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="550" fill="#c9d6e8" >Tarjeta</text>
+<text x="1059" y="904" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="400" fill="#9fb0c5" >63 estancias</text>
+<text x="60" y="981" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="650" fill="#9eafc4" letter-spacing="1.5">HOTELDB · PORTAFOLIO SQL SERVER + BI</text>
+<text x="1540" y="981" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="400" fill="#95a6bd" text-anchor="end">Vista previa · Datos históricos · No es tiempo real</text>
+</svg>

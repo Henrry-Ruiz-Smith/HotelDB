@@ -4,6 +4,16 @@ Proyecto de portafolio de **modelado relacional, calidad de datos, SQL analític
 
 > **Alcance:** demostración analítica sobre datos de ejemplo; **no** es un PMS (Property Management System) listo para operar reservas reales. No contiene API, autenticación, pagos en línea ni gestión transaccional de disponibilidad.
 
+## Dashboard ejecutivo · Vista previa
+
+![Dashboard HotelDB: ingresos, estancias, satisfacción, evolución mensual y rendimiento por hotel](dashboard/preview.svg)
+
+El panel muestra métricas calculadas a partir de los **1.000 registros de muestra de 2022**, con un diseño renovado, sin mostrar nombres ni documentos de clientes. Esta imagen se visualiza en GitHub como vista previa estática.
+
+**Explorar el dashboard:** [interfaz web y código fuente](dashboard/index.html) · [Cómo abrirlo localmente y publicarlo en GitHub Pages](dashboard/README.md). El dashboard web contiene filtros por **hotel, mes y tipo de habitación**, gráficos dinámicos y exportación CSV. Para usarlo de manera interactiva hay que abrirlo en un navegador o publicarlo en Pages; GitHub no ejecuta scripts dentro de un README.
+
+> **Datos históricos de demostración (2022)**. Los ingresos son estimados; no representan cobros verificados ni información en tiempo real. El PBIX original se conserva.
+
 ## Stack
 
 - **Microsoft SQL Server 2019+** y T-SQL.
