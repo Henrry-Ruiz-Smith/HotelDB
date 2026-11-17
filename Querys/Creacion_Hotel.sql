@@ -1,7 +1,7 @@
 -- HotelDB | Esquema T-SQL para Microsoft SQL Server 2019+
 -- Primera ejecución: base vacía. No elimina tablas ni datos existentes.
 IF DB_ID(N'BDHOTEL') IS NULL
-    CREATE DATABASE [BDHOTEL];
+    EXEC(N'CREATE DATABASE [BDHOTEL]');
 GO
 USE [BDHOTEL];
 GO

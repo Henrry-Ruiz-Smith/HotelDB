@@ -1,0 +1,12 @@
+# Herramientas locales y caches (sin excluir los artefactos originales)
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
