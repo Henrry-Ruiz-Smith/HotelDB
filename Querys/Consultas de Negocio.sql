@@ -1,111 +1,132 @@
-/*1.- En el hotel con menos ingresos. ¿Cuál es el consumible que más se demanda? ¿Qué porcentaje del total representa el tipo de consumible (agrupación)?*/
+-- HotelDB | Cinco preguntas de negocio con granularidad correcta.
+-- Requisitos: Creacion_Hotel -> lnsercion_Hotel -> 02_integridad_y_optimizacion -> Vistas.
+USE [BDHOTEL];
+GO
 
-SELECT 
-tc.Consumible, 
-SUM(c.Cantidad * co.PrecioUnitario) as IngresoConsumibles,
-COUNT(c.Cantidad) as Demanda
-FROM CONSUMO c
-JOIN CLIENTE_HABITACION ch ON c.id_cliente = ch.id_cliente
-JOIN HABITACION ha ON ch.id_habitacion = ha.id_habitacion
-JOIN CONSUMIBLE co ON c.id_consumible = co.id_consumible
-JOIN TIPO_CONSUMIBLE tc ON co.id_tipo_consumible = tc.id_tipo_consumible
-WHERE ha.id_hotel = (
-    SELECT TOP 1 h.id_hotel
-    FROM HOTEL h
-    JOIN Habitacion ha ON ha.id_hotel = h.id_hotel
-    JOIN Tipo_Habitacion th ON th.id_tipo_habitacion = ha.id_tipo_habitacion
-    JOIN Cliente_Habitacion ch ON ch.id_habitacion = ha.id_habitacion
-    JOIN Estancia e ON e.id_cliente = ch.id_cliente
-    GROUP BY h.id_hotel
-    ORDER BY SUM(DATEDIFF(day, e.fecha_entrada, e.fecha_salida) * th.precio) ASC
+-- 1) Hotel con menor ingreso por alojamiento (en toda la muestra):
+--    consumo por TIPO, unidades demandadas, ingreso y porcentaje de unidades.
+--    La agrupaciÃ³n DISTINCT estancia/hotel impide duplicar consumos cuando una
+--    estancia contiene varias habitaciones del mismo hotel.
+;WITH IngresosHotel AS (
+    SELECT Id_Hotel, MAX(Nombre) AS Hotel,
+           SUM(Ingreso_Alojamiento) AS Ingresos_Alojamiento
+    FROM dbo.vista_estancias
+    GROUP BY Id_Hotel
+), HotelMenorIngreso AS (
+    SELECT TOP (1) Id_Hotel, Hotel, Ingresos_Alojamiento
+    FROM IngresosHotel
+    ORDER BY Ingresos_Alojamiento ASC, Id_Hotel ASC
+), EstanciaHotel AS (
+    SELECT DISTINCT ch.Id_Estancia, h.Id_Hotel
+    FROM dbo.CLIENTE_HABITACION AS ch
+    JOIN dbo.HABITACION AS h ON h.Id_Habitacion = ch.Id_Habitacion
+), DemandaTipo AS (
+    SELECT eh.Id_Hotel, tc.Consumible AS Tipo_Consumible,
+           SUM(co.Cantidad) AS Unidades_Demandadas,
+           SUM(CAST(co.Cantidad * i.PrecioUnitario AS DECIMAL(18,2))) AS Ingresos_Consumibles
+    FROM dbo.CONSUMO AS co
+    JOIN EstanciaHotel AS eh ON eh.Id_Estancia = co.Id_Estancia
+    JOIN dbo.CONSUMIBLE AS i ON i.Id_Consumible = co.Id_Consumible
+    JOIN dbo.TIPO_CONSUMIBLE AS tc ON tc.Id_Tipo_Consumible = i.Id_Tipo_Consumible
+    GROUP BY eh.Id_Hotel, tc.Consumible
 )
-GROUP BY tc.Consumible
-ORDER BY IngresoConsumibles DESC
+SELECT hm.Hotel, hm.Ingresos_Alojamiento, d.Tipo_Consumible,
+       d.Unidades_Demandadas, d.Ingresos_Consumibles,
+       CAST(100.0 * d.Unidades_Demandadas /
+            NULLIF(SUM(d.Unidades_Demandadas) OVER (), 0) AS DECIMAL(7,2)) AS Porcentaje_Unidades
+FROM HotelMenorIngreso AS hm
+JOIN DemandaTipo AS d ON d.Id_Hotel = hm.Id_Hotel
+ORDER BY d.Unidades_Demandadas DESC, d.Tipo_Consumible;
+GO
 
-/*2. ¿Qué habitación tiene el mayor nivel de satisfacción de los clientes, en cada uno de los hoteles?*/
-
-SELECT
-    ho.Nombre,
-    th.Tipo,
-    COUNT(ch.Id_Satisfaccion) [Clientes muy Satisfechos]
-FROM 
-    ESTANCIA as e 
-    JOIN CLIENTE as c ON e.Id_Cliente = c.Id_Cliente 
-    JOIN CLIENTE_HABITACION as ch ON e.Id_Cliente = ch.Id_Cliente 
-    JOIN HABITACION as h ON ch.Id_Habitacion = h.Id_Habitacion 
-    JOIN HOTEL as ho ON h.Id_Hotel = ho.Id_Hotel 
-    JOIN TIPO_HABITACION as th ON h.Id_Tipo_Habitacion = th.Id_Tipo_Habitacion 
-    JOIN SATISFACCION as s ON ch.Id_Satisfaccion = s.Id_Satisfaccion
-WHERE 
-    s.Nivel_Satisfaccion = 'Muy Satisfecho'
-GROUP BY 
-    ho.Nombre, th.Tipo
-ORDER BY 
-    COUNT(ch.Id_Satisfaccion) desc
-
-/*3. ¿Qué tipo de pago es el que más prefieren los clientes, en cada uno de los hoteles?*/
-
-WITH CTE AS (
-  SELECT
-    ho.Nombre,
-    m.Modo_Pago,
-    COUNT(e.Id_Estancia) AS [Cantidad de veces que se uso],
-    ROW_NUMBER() OVER (PARTITION BY ho.Nombre ORDER BY COUNT(e.Id_Estancia) DESC) AS RowNum
-  FROM ESTANCIA AS e
-  JOIN CLIENTE AS c ON e.Id_Cliente = c.Id_Cliente
-  JOIN CLIENTE_HABITACION AS ch ON e.Id_Cliente = ch.Id_Cliente
-  JOIN HABITACION AS h ON ch.Id_Habitacion = h.Id_Habitacion
-  JOIN HOTEL AS ho ON h.Id_Hotel = ho.Id_Hotel
-  JOIN MODO_PAGO AS m ON e.Id_Modo_Pago = m.Id_Modo_Pago
-  GROUP BY ho.Nombre, m.Modo_Pago
+-- 2) Tipo de habitaciÃ³n mejor valorado EN CADA HOTEL:
+--    porcentaje de respuestas "Muy satisfecho" sobre encuestas respondidas.
+--    Comparar porcentajes evita que el tipo mÃ¡s vendido gane por volumen.
+;WITH Encuestas AS (
+    SELECT v.Id_Hotel, v.Nombre AS Hotel, v.Tipo,
+           COUNT_BIG(*) AS Total_Encuestas,
+           SUM(CASE WHEN v.Nivel_Satisfaccion = 'Muy satisfecho' THEN 1 ELSE 0 END) AS Muy_Satisfechos
+    FROM dbo.vista_estancias AS v
+    WHERE v.Nivel_Satisfaccion IS NOT NULL
+    GROUP BY v.Id_Hotel, v.Nombre, v.Tipo
+), Ranking AS (
+    SELECT *,
+           CAST(100.0 * Muy_Satisfechos / NULLIF(Total_Encuestas, 0) AS DECIMAL(7,2)) AS Porcentaje_Muy_Satisfechos,
+           DENSE_RANK() OVER (
+               PARTITION BY Id_Hotel
+               ORDER BY 1.0 * Muy_Satisfechos / NULLIF(Total_Encuestas, 0) DESC
+           ) AS Posicion
+    FROM Encuestas
 )
-SELECT Nombre, Modo_Pago, [Cantidad de veces que se uso]
-FROM CTE
-WHERE RowNum = 1
-ORDER BY Nombre;
+SELECT Hotel, Tipo, Total_Encuestas, Muy_Satisfechos, Porcentaje_Muy_Satisfechos
+FROM Ranking
+WHERE Posicion = 1
+ORDER BY Hotel, Tipo;
+GO
 
-/*4. ¿Qué hotel tiene un mayor nivel de satisfacción por parte de los clientes en el último trimestre del 2022?*/
-
-SELECT
-  ho.Nombre,
-  s.Nivel_Satisfaccion,
-  COUNT(ch.Id_Satisfaccion) AS [Cantidad de veces que se uso]
-FROM
-  ESTANCIA AS e
-  JOIN CLIENTE AS c ON e.Id_Cliente = c.Id_Cliente
-  JOIN CLIENTE_HABITACION AS ch ON e.Id_Cliente = ch.Id_Cliente
-  JOIN HABITACION AS h ON ch.Id_Habitacion = h.Id_Habitacion
-  JOIN HOTEL AS ho ON h.Id_Hotel = ho.Id_Hotel
-  JOIN SATISFACCION AS s ON ch.Id_Satisfaccion = s.Id_Satisfaccion
-WHERE
-  MONTH(e.Fecha_Entrada) IN (10, 11, 12) AND
-  s.Nivel_Satisfaccion IN ('Muy Satisfecho', 'Satisfecho')
-GROUP BY
-  ho.Nombre,
-  s.Nivel_Satisfaccion
-ORDER BY
-  s.Nivel_Satisfaccion,
-  COUNT(ch.Id_Satisfaccion) DESC;
-
-/*5. ¿Qué tipo de habitación genera mayores ingresos al año, en cada hotel?*/
-WITH CTE AS (
-  SELECT
-    ho.Nombre,
-    th.Tipo,
-    SUM(DATEDIFF(day, e.Fecha_Entrada, e.Fecha_Salida) * th.Precio) AS [Ingresos],
-    ROW_NUMBER() OVER (PARTITION BY ho.Nombre ORDER BY SUM(DATEDIFF(day, e.Fecha_Entrada, e.Fecha_Salida) * th.Precio) DESC) AS RN
-  FROM
-    ESTANCIA AS e
-    JOIN CLIENTE AS c ON e.Id_Cliente = c.Id_Cliente
-    JOIN CLIENTE_HABITACION AS ch ON e.Id_Cliente = ch.Id_Cliente
-    JOIN HABITACION AS h ON ch.Id_Habitacion = h.Id_Habitacion
-    JOIN HOTEL AS ho ON h.Id_Hotel = ho.Id_Hotel
-    JOIN TIPO_HABITACION AS th ON h.Id_Tipo_Habitacion = th.Id_Tipo_Habitacion
-  GROUP BY
-    ho.Nombre,
-    th.Tipo
+-- 3) Medio de pago mÃ¡s utilizado en cada hotel. Una estancia se cuenta UNA vez;
+--    DENSE_RANK muestra los empates en primer lugar.
+;WITH EstanciasHotel AS (
+    SELECT DISTINCT v.Id_Estancia, v.Id_Hotel, v.Nombre AS Hotel, v.Id_Modo_Pago, v.Modo_Pago
+    FROM dbo.vista_estancias AS v
+), Frecuencia AS (
+    SELECT Id_Hotel, Hotel, Id_Modo_Pago, Modo_Pago,
+           COUNT_BIG(*) AS Veces_Utilizado
+    FROM EstanciasHotel
+    GROUP BY Id_Hotel, Hotel, Id_Modo_Pago, Modo_Pago
+), Ranking AS (
+    SELECT *, DENSE_RANK() OVER (
+        PARTITION BY Id_Hotel ORDER BY Veces_Utilizado DESC
+    ) AS Posicion
+    FROM Frecuencia
 )
-SELECT Nombre, Tipo, Ingresos
-FROM CTE
-WHERE RN = 1
-ORDER BY Ingresos DESC;
+SELECT Hotel, Modo_Pago, Veces_Utilizado
+FROM Ranking
+WHERE Posicion = 1
+ORDER BY Hotel, Modo_Pago;
+GO
+
+-- 4) Hotel con mayor SATISFACCIÃ“N FAVORABLE (Satisfecho + Muy satisfecho)
+--    para estancias iniciadas entre el 01-oct y el 31-dic de 2022.
+;WITH Encuestas AS (
+    SELECT v.Id_Hotel, v.Nombre AS Hotel,
+           COUNT_BIG(*) AS Encuestas,
+           SUM(CASE WHEN v.Nivel_Satisfaccion IN ('Satisfecho', 'Muy satisfecho')
+                    THEN 1 ELSE 0 END) AS Favorables
+    FROM dbo.vista_estancias AS v
+    WHERE v.Fecha_Entrada >= '20221001' AND v.Fecha_Entrada < '20230101'
+      AND v.Nivel_Satisfaccion IS NOT NULL
+    GROUP BY v.Id_Hotel, v.Nombre
+), Ranking AS (
+    SELECT *,
+           CAST(100.0 * Favorables / NULLIF(Encuestas, 0) AS DECIMAL(7,2)) AS Porcentaje_Favorable,
+           DENSE_RANK() OVER (
+               ORDER BY 1.0 * Favorables / NULLIF(Encuestas, 0) DESC
+           ) AS Posicion
+    FROM Encuestas
+)
+SELECT Hotel, Encuestas, Favorables, Porcentaje_Favorable
+FROM Ranking
+WHERE Posicion = 1
+ORDER BY Hotel;
+GO
+
+-- 5) Tipo de habitaciÃ³n que mÃ¡s ingresos de alojamiento genera POR HOTEL Y AÃ‘O.
+--    Se imputa el importe al aÃ±o de entrada; para estancias entre dos aÃ±os
+--    harÃ­a falta prorratear las noches por aÃ±o calendario.
+;WITH Ingresos AS (
+    SELECT v.Id_Hotel, v.Nombre AS Hotel, YEAR(v.Fecha_Entrada) AS Anio, v.Tipo,
+           SUM(v.Ingreso_Alojamiento) AS Ingresos_Alojamiento
+    FROM dbo.vista_estancias AS v
+    GROUP BY v.Id_Hotel, v.Nombre, YEAR(v.Fecha_Entrada), v.Tipo
+), Ranking AS (
+    SELECT *, DENSE_RANK() OVER (
+        PARTITION BY Id_Hotel, Anio ORDER BY Ingresos_Alojamiento DESC
+    ) AS Posicion
+    FROM Ingresos
+)
+SELECT Hotel, Anio, Tipo, Ingresos_Alojamiento
+FROM Ranking
+WHERE Posicion = 1
+ORDER BY Anio, Hotel, Tipo;
+GO
