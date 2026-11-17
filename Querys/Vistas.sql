@@ -1,41 +1,59 @@
-/*I. La vista debe mostrar Nombre del hotel, fecha Entrada/Salida, Modo de pago utilizado, Nombre completo de los clientes, Nivel de satisfacción, Tipo de Habitación y el precio de cada habitación.*/
-CREATE VIEW vista_estancias AS
-SELECT 
-    ho.Nombre,
-    m.Modo_Pago,
-    CONCAT(c.Nombre,' ',c.Apellido) AS [Nombre de clientes],
-    th.Tipo,
-    th.Precio
-FROM 
-    ESTANCIA as e 
-    JOIN MODO_PAGO m ON e.Id_Modo_Pago = m.Id_Modo_Pago  
-    JOIN CLIENTE as c ON e.Id_Cliente = c.Id_Cliente 
-    JOIN CLIENTE_HABITACION as ch ON e.Id_Cliente = ch.Id_Cliente 
-    JOIN HABITACION as h ON ch.Id_Habitacion = h.Id_Habitacion 
-    JOIN TIPO_HABITACION as th ON ch.Id_Habitacion = h.Id_Habitacion 
-    JOIN HOTEL as ho ON h.Id_Tipo_Habitacion = th.Id_Tipo_Habitacion;
+-- HotelDB | Vistas compatibles con SQL Server 2019+.
+-- Requiere ejecutar primero 02_integridad_y_optimizacion.sql.
+USE [BDHOTEL];
+GO
 
-SELECT * FROM vista_estancias;
-
-/*II. La vista debe mostrar Nombre del hotel, Nivel de satisfacción, cantidad de encuesta recibidas en el primer semestre del 2022*/
-
-CREATE VIEW vista_satisfacion AS
+-- Granularidad: UNA FILA POR HABITACION ASIGNADA A CADA ESTANCIA.
+-- Mantiene alias originales: Nombre, Modo_Pago, [Nombre de clientes], Tipo, Precio.
+CREATE OR ALTER VIEW dbo.vista_estancias
+AS
 SELECT
-  ho.Nombre,
-  s.Nivel_Satisfaccion,
-  COUNT(ch.Id_Satisfaccion) AS [Total de encuestas]
-FROM
-  ESTANCIA AS e
-  JOIN CLIENTE AS c ON e.Id_Cliente = c.Id_Cliente
-  JOIN CLIENTE_HABITACION AS ch ON e.Id_Cliente = ch.Id_Cliente
-  JOIN HABITACION AS h ON ch.Id_Habitacion = h.Id_Habitacion
-  JOIN HOTEL AS ho ON h.Id_Hotel = ho.Id_Hotel
-  JOIN SATISFACCION AS s ON ch.Id_Satisfaccion = s.Id_Satisfaccion
-WHERE
-  MONTH(e.Fecha_Entrada) IN (1, 2, 3, 4, 5, 6) AND
-  s.Nivel_Satisfaccion IN ('Muy Satisfecho', 'Satisfecho', 'Neutral', 'Insatisfecho', 'Muy Insatisfecho')
-GROUP BY
-  ho.Nombre,
-  s.Nivel_Satisfaccion;
+    e.Id_Estancia,
+    e.Id_Cliente,
+    e.Fecha_Entrada,
+    e.Fecha_Salida,
+    DATEDIFF(DAY, e.Fecha_Entrada, e.Fecha_Salida) AS Noches,
+    e.Id_Modo_Pago,
+    mp.Modo_Pago,
+    h.Id_Hotel,
+    ho.Nombre,
+    h.Id_Habitacion,
+    h.Numero_Habitacion,
+    th.Id_Tipo_Habitacion,
+    th.Tipo,
+    ch.Tarifa_Por_Noche AS Precio,
+    ch.Tarifa_Por_Noche,
+    CAST(DATEDIFF(DAY, e.Fecha_Entrada, e.Fecha_Salida) * ch.Tarifa_Por_Noche AS DECIMAL(18,2)) AS Ingreso_Alojamiento,
+    s.Nivel_Satisfaccion,
+    CONCAT(c.Nombre, ' ', c.Apellido) AS [Nombre de clientes]
+FROM dbo.CLIENTE_HABITACION AS ch
+JOIN dbo.ESTANCIA AS e
+  ON e.Id_Estancia = ch.Id_Estancia AND e.Id_Cliente = ch.Id_Cliente
+JOIN dbo.CLIENTE AS c ON c.Id_Cliente = e.Id_Cliente
+JOIN dbo.HABITACION AS h ON h.Id_Habitacion = ch.Id_Habitacion
+JOIN dbo.HOTEL AS ho ON ho.Id_Hotel = h.Id_Hotel
+JOIN dbo.TIPO_HABITACION AS th ON th.Id_Tipo_Habitacion = h.Id_Tipo_Habitacion
+JOIN dbo.MODO_PAGO AS mp ON mp.Id_Modo_Pago = e.Id_Modo_Pago
+LEFT JOIN dbo.SATISFACCION AS s ON s.Id_Satisfaccion = ch.Id_Satisfaccion;
+GO
 
-SELECT * FROM vista_satisfacion;
+-- Encuestas en estancias iniciadas en el PRIMER SEMESTRE DE 2022.
+-- No existe fecha real de encuesta: la fecha de entrada es el proxy documentado.
+-- Nombre de vista original conservado para compatibilidad.
+CREATE OR ALTER VIEW dbo.vista_satisfacion
+AS
+SELECT
+    h.Id_Hotel,
+    ho.Nombre,
+    s.Nivel_Satisfaccion,
+    COUNT_BIG(*) AS [Total de encuestas]
+FROM dbo.CLIENTE_HABITACION AS ch
+JOIN dbo.ESTANCIA AS e
+  ON e.Id_Estancia = ch.Id_Estancia AND e.Id_Cliente = ch.Id_Cliente
+JOIN dbo.HABITACION AS h ON h.Id_Habitacion = ch.Id_Habitacion
+JOIN dbo.HOTEL AS ho ON ho.Id_Hotel = h.Id_Hotel
+JOIN dbo.SATISFACCION AS s ON s.Id_Satisfaccion = ch.Id_Satisfaccion
+WHERE e.Fecha_Entrada >= '20220101'
+  AND e.Fecha_Entrada < '20220701'
+GROUP BY h.Id_Hotel, ho.Nombre, s.Nivel_Satisfaccion;
+GO

@@ -1,0 +1,4 @@
+*.pbix binary
+*.xlsx binary
+*.sql text eol=lf
+*.md text eol=lf
