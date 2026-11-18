@@ -1,18 +1,30 @@
 # HotelDB | Analítica hotelera con SQL Server y Power BI
 
-Proyecto de portafolio de **modelado relacional, calidad de datos, SQL analítico y visualización de indicadores hoteleros**. Incluye una base de ejemplo, consultas de negocio reproducibles y un informe de Power BI.
+**SQL Server · Business Intelligence · SQL Analytics · Data Quality · Interactive Dashboard**
 
-> **Alcance:** demostración analítica sobre datos de ejemplo; **no** es un PMS (Property Management System) listo para operar reservas reales. No contiene API, autenticación, pagos en línea ni gestión transaccional de disponibilidad.
+### [▶ ABRIR DASHBOARD INTERACTIVO EN VIVO](https://henrry-ruiz-smith.github.io/HotelDB/)
 
-## Dashboard ejecutivo · Vista previa
+[![Vista previa del dashboard ejecutivo de HotelDB: haz clic para abrir la versión interactiva](dashboard/preview.svg)](https://henrry-ruiz-smith.github.io/HotelDB/)
 
-![Dashboard HotelDB: ingresos, estancias, satisfacción, evolución mensual y rendimiento por hotel](dashboard/preview.svg)
+**1.000 estancias** · **S/ 3.180.050** en ingresos estimados de alojamiento · **74,9 %** de satisfacción favorable · **2022**
 
-El panel muestra métricas calculadas a partir de los **1.000 registros de muestra de 2022**, con un diseño renovado, sin mostrar nombres ni documentos de clientes. Esta imagen se visualiza en GitHub como vista previa estática.
+[Explorar dashboard en vivo](https://henrry-ruiz-smith.github.io/HotelDB/) · [Ver código del dashboard](dashboard/) · [Consultar modelo y KPI](docs/MODELO_Y_KPIS.md) · [Abrir informe Power BI original](Power%20BI%20-%20Proyecto/PROYECTO%20INTEGRADOR.pbix)
 
-**Explorar el dashboard:** [interfaz web y código fuente](dashboard/index.html) · [Cómo abrirlo localmente y publicarlo en GitHub Pages](dashboard/README.md). El dashboard web contiene filtros por **hotel, mes y tipo de habitación**, gráficos dinámicos y exportación CSV. Para usarlo de manera interactiva hay que abrirlo en un navegador o publicarlo en Pages; GitHub no ejecuta scripts dentro de un README.
+> **Demo histórica (2022):** resultados calculados sobre datos de ejemplo. No son ingresos auditados ni indicadores en tiempo real. El archivo Power BI original se conserva.
 
-> **Datos históricos de demostración (2022)**. Los ingresos son estimados; no representan cobros verificados ni información en tiempo real. El PBIX original se conserva.
+## Sobre el proyecto
+
+HotelDB es un proyecto de portafolio de **modelado relacional, calidad de datos, SQL analítico y visualización de indicadores hoteleros**. Incluye scripts reproducibles para SQL Server, cinco consultas de negocio, validaciones, un informe Power BI y un dashboard web público con filtros por hotel, mes y tipo de habitación.
+
+**Qué demuestra:** modelado y consultas SQL, control de integridad, análisis de ingresos, indicadores de satisfacción y presentación ejecutiva orientada a decisiones.
+
+> **Alcance:** demostración analítica; **no** es un PMS (Property Management System) productivo. No incluye API, autenticación, pagos en línea ni gestión transaccional de disponibilidad.
+
+## Dashboard ejecutivo
+
+El dashboard web incluye indicadores KPI, evolución mensual de ingresos, comparaciones entre hoteles, satisfacción, preferencias de pago, consumibles, filtros interactivos y exportación CSV. La imagen superior es la vista previa estática; haz clic en ella para abrir la versión funcional publicada mediante GitHub Pages.
+
+**Acceso directo:** https://henrry-ruiz-smith.github.io/HotelDB/ · [Documentación técnica del dashboard](dashboard/README.md)
 
 ## Stack
 
