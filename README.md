@@ -2,6 +2,8 @@
 
 **SQL Server · Business Intelligence · SQL Analytics · Data Quality · Interactive Dashboard**
 
+[![SQL quality](https://github.com/Henrry-Ruiz-Smith/HotelDB/actions/workflows/sql-quality.yml/badge.svg)](https://github.com/Henrry-Ruiz-Smith/HotelDB/actions/workflows/sql-quality.yml) [![Dashboard deployment](https://github.com/Henrry-Ruiz-Smith/HotelDB/actions/workflows/pages.yml/badge.svg)](https://github.com/Henrry-Ruiz-Smith/HotelDB/actions/workflows/pages.yml) · [Perfil profesional de Henrry Ruiz Smith](https://github.com/Henrry-Ruiz-Smith)
+
 ### [▶ ABRIR DASHBOARD INTERACTIVO EN VIVO](https://henrry-ruiz-smith.github.io/HotelDB/)
 
 [![Vista previa del dashboard ejecutivo de HotelDB: haz clic para abrir la versión interactiva](dashboard/preview.svg)](https://henrry-ruiz-smith.github.io/HotelDB/)
@@ -19,6 +21,32 @@ HotelDB es un proyecto de portafolio de **modelado relacional, calidad de datos,
 **Qué demuestra:** modelado y consultas SQL, control de integridad, análisis de ingresos, indicadores de satisfacción y presentación ejecutiva orientada a decisiones.
 
 > **Alcance:** demostración analítica; **no** es un PMS (Property Management System) productivo. No incluye API, autenticación, pagos en línea ni gestión transaccional de disponibilidad.
+
+## Arquitectura de la demostración
+
+HotelDB ofrece **dos rutas complementarias** sobre el mismo conjunto de datos sintéticos: consultas e informes sobre SQL Server, y una versión web autónoma que permite explorar los resultados sin instalar el motor ni Power BI.
+
+\`\`\`mermaid
+flowchart TD
+    A["Datos de ejemplo · SQL 2022"]
+    A --> B["SQL Server · modelo relacional"]
+    B --> C["Vistas, validaciones y consultas de negocio"]
+    C --> D["Power BI · informe original"]
+    A --> E["Python · build_dashboard_data.py"]
+    E --> F["data.js · datos anonimizados para demo"]
+    F --> G["Dashboard HTML/JS · GitHub Pages"]
+    style A fill:#0F172A,color:#FFFFFF,stroke:#38BDF8
+    style B fill:#155E75,color:#FFFFFF,stroke:#38BDF8
+    style C fill:#155E75,color:#FFFFFF,stroke:#38BDF8
+    style D fill:#4C1D95,color:#FFFFFF,stroke:#A78BFA
+    style E fill:#065F46,color:#FFFFFF,stroke:#34D399
+    style F fill:#065F46,color:#FFFFFF,stroke:#34D399
+    style G fill:#4C1D95,color:#FFFFFF,stroke:#A78BFA
+\`\`\`
+
+El dashboard web utiliza datos **precalculados** del seed histórico, por lo que no consulta SQL Server en tiempo real. La publicación en GitHub Pages contiene únicamente la carpeta <code>dashboard/</code>. Las validaciones automáticas comprueban contratos de estructura, coherencia del dataset web y reglas estáticas; no ejecutan consultas contra una instancia de SQL Server.
+
+**Para evaluar el proyecto:** [dashboard interactivo](https://henrry-ruiz-smith.github.io/HotelDB/) · [scripts SQL](Querys/) · [pruebas](tests/) · [documentación de modelo y KPI](docs/MODELO_Y_KPIS.md).
 
 ## Dashboard ejecutivo
 
