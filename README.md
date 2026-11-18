@@ -26,7 +26,7 @@ HotelDB es un proyecto de portafolio de **modelado relacional, calidad de datos,
 
 HotelDB ofrece **dos rutas complementarias** sobre el mismo conjunto de datos sintéticos: consultas e informes sobre SQL Server, y una versión web autónoma que permite explorar los resultados sin instalar el motor ni Power BI.
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
     A["Datos de ejemplo · SQL 2022"]
     A --> B["SQL Server · modelo relacional"]
@@ -42,7 +42,7 @@ flowchart TD
     style E fill:#065F46,color:#FFFFFF,stroke:#34D399
     style F fill:#065F46,color:#FFFFFF,stroke:#34D399
     style G fill:#4C1D95,color:#FFFFFF,stroke:#A78BFA
-\`\`\`
+```
 
 El dashboard web utiliza datos **precalculados** del seed histórico, por lo que no consulta SQL Server en tiempo real. La publicación en GitHub Pages contiene únicamente la carpeta <code>dashboard/</code>. Las validaciones automáticas comprueban contratos de estructura, coherencia del dataset web y reglas estáticas; no ejecutan consultas contra una instancia de SQL Server.
 
